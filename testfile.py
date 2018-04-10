@@ -84,6 +84,8 @@ def UOwebscrape(gender):
                 pageonerequesturl = baseurl + "-new-" + eachtype
             elif eachtype == "swimwear":
                 pageonerequesturl = baseurl + "-new-" + gender + eachtype
+            elif eachtype == "dresses":
+                pageonerequesturl = baseurl + "new-" + eachtype
             else:
                 pageonerequesturl = baseurl + gender + "-new-" + eachtype
             #make this request, store information
