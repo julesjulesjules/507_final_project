@@ -45,18 +45,13 @@ def UOwebscrape(gender):
             #make this request, store information
             page_text = requests.get(pageonerequesturl).text
             page_soup = BeautifulSoup(page_text, 'html.parser')
-            page_items = page_soup.find_all(itemprop = "name")
+            page_prices = page_soup.find_all(class_ = "c-product-meta__current-price")
 
-            #also need to find prices
-            page_one_item_list = []
-            n = 0
-            for each in page_items:
-                if n < 18:
-                    pass
-                else:
-                    page_one_item_list.append(each.text.strip())
-                n = n + 1
-                #also append prices
+            page_one_price_list = []
+
+            for each in page_prices:
+                page_one_item_list.append(each.text.strip()[1:])
+
             #also grab pagination count
             pagelimit = page_soup.find(class_ = "o-pagination__li o-pagination__number--next")
             usepage = int(pagelimit.text)
@@ -66,16 +61,11 @@ def UOwebscrape(gender):
                 pageurl = pageonerequesturl + "?page=" + str(start)
                 nextpage_text = requests.get(pageurl).text
                 nextpage_soup = BeautifulSoup(nextpage_text, 'html.parser')
-                otheritems = nextpage_soup.find_all(itemprop = "name")
-                n = 0
-                for each in otheritems:
-                    if n < 18:
-                        pass
-                    else:
-                        page_one_item_list.append(each.text.strip())
-                    n = n + 1
+                other_page_prices = page_soup.find_all(class_ = "c-product-meta__current-price")
 
-                    #also append prices as tuples??? so list of tuples?
+                for each in other_page_prices:
+                    page_one_item_list.append(each.text.strip()[1:])
+                    
                 start = start + 1
             returndictionary[eachtype] = page_one_item_list
         return(returndictionary)
