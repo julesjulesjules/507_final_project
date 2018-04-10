@@ -28,6 +28,11 @@ sys.stdout = codecs.getwriter('utf-8')(sys.stdout.buffer)
 #anchors = page_soup.find_all('a', class_ = "mobileScoreboardLink")
 
 ### WOMENS ###
+page_text = requests.get("https://www.urbanoutfitters.com/mens-new-clothing").text
+page_soup = BeautifulSoup(page_text, 'html.parser')
+page_prices = page_soup.find_all(class_ = "c-product-meta__current-price")
+for each in page_prices:
+    print(each.text.strip()[1:])
 
 def UOwebscrape(gender):
     baseurl = "https://www.urbanoutfitters.com/"
@@ -41,6 +46,7 @@ def UOwebscrape(gender):
             page_text = requests.get(pageonerequesturl).text
             page_soup = BeautifulSoup(page_text, 'html.parser')
             page_items = page_soup.find_all(itemprop = "name")
+
             #also need to find prices
             page_one_item_list = []
             n = 0
@@ -136,9 +142,9 @@ def UOwebscrape(gender):
 #f.write(json)
 #f.close()
 
-womensUO = UOwebscrape("womens")
+#womensUO = UOwebscrape("womens")
 
-json = json.dumps(womensUO)
-f = open("UOwomensdictionary.json","w")
-f.write(json)
-f.close()
+#json = json.dumps(womensUO)
+#f = open("UOwomensdictionary.json","w")
+#f.write(json)
+#f.close()
