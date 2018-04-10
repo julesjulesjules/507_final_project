@@ -28,13 +28,13 @@ sys.stdout = codecs.getwriter('utf-8')(sys.stdout.buffer)
 #anchors = page_soup.find_all('a', class_ = "mobileScoreboardLink")
 
 ### WOMENS ###
-page_text = requests.get("https://www.urbanoutfitters.com/mens-new-clothing").text
-page_soup = BeautifulSoup(page_text, 'html.parser')
-page_prices = page_soup.find_all(class_ = "c-product-meta__current-price")
-for each in page_prices:
-    print(each.text.strip()[1:])
+#page_text = requests.get("https://www.urbanoutfitters.com/mens-new-clothing").text
+#page_soup = BeautifulSoup(page_text, 'html.parser')
+#page_prices = page_soup.find_all(class_ = "c-product-meta__current-price")
+#for each in page_prices:
+#    print(each.text.strip()[1:])
 
-def UOwebscrape(gender):
+def UOpricescrape(gender):
     baseurl = "https://www.urbanoutfitters.com/"
 
     if gender == "mens":
@@ -50,7 +50,7 @@ def UOwebscrape(gender):
             page_one_price_list = []
 
             for each in page_prices:
-                page_one_item_list.append(each.text.strip()[1:])
+                page_one_price_list.append(each.text.strip()[1:])
 
             #also grab pagination count
             pagelimit = page_soup.find(class_ = "o-pagination__li o-pagination__number--next")
@@ -64,10 +64,10 @@ def UOwebscrape(gender):
                 other_page_prices = page_soup.find_all(class_ = "c-product-meta__current-price")
 
                 for each in other_page_prices:
-                    page_one_item_list.append(each.text.strip()[1:])
-                    
+                    page_one_price_list.append(each.text.strip()[1:])
+
                 start = start + 1
-            returndictionary[eachtype] = page_one_item_list
+            returndictionary[eachtype] = page_one_price_list
         return(returndictionary)
 
     elif gender == "womens":
@@ -76,10 +76,10 @@ def UOwebscrape(gender):
         returndictionary = {}
         categories = ["dresses", "clothing", "jackets", "bottoms", "intimates", "swimwear", "vintage-clothing", "beauty", "accessories", "shoes"]
         for eachtype in categories:
-            if eachtype == "vintage":
+            if eachtype == "vintage-clothing":
                 pageonerequesturl = baseurl + "-new-" + eachtype
             elif eachtype == "swimwear":
-                pageonerequesturl = baseurl + "-new-" + gender + eachtype
+                pageonerequesturl = baseurl + "new-" + gender + eachtype
             elif eachtype == "dresses":
                 pageonerequesturl = baseurl + "new-" + eachtype
             else:
@@ -87,16 +87,13 @@ def UOwebscrape(gender):
             #make this request, store information
             page_text = requests.get(pageonerequesturl).text
             page_soup = BeautifulSoup(page_text, 'html.parser')
-            page_items = page_soup.find_all(itemprop = "name")
+            page_prices = page_soup.find_all(class_ = "c-product-meta__current-price")
             #also need to find prices
-            page_one_item_list = []
-            n = 0
-            for each in page_items:
-                if n < 22:
-                    pass
-                else:
-                    page_one_item_list.append(each.text.strip())
-                n = n + 1
+            page_one_price_list = []
+
+            for each in page_prices:
+                page_one_price_list.append(each.text.strip()[1:])
+
                 #also append prices
             #also grab pagination count
             pagelimit = page_soup.find(class_ = "o-pagination__li o-pagination__number--next")
@@ -108,33 +105,27 @@ def UOwebscrape(gender):
                     pageurl = pageonerequesturl + "?page=" + str(start)
                     nextpage_text = requests.get(pageurl).text
                     nextpage_soup = BeautifulSoup(nextpage_text, 'html.parser')
-                    otheritems = nextpage_soup.find_all(itemprop = "name")
-                    n = 0
-                    for each in otheritems:
-                        if n < 22:
-                            pass
-                        else:
-                            page_one_item_list.append(each.text.strip())
-                        n = n + 1
+                    other_page_prices = page_soup.find_all(class_ = "c-product-meta__current-price")
 
-                        #also append prices as tuples??? so list of tuples?
+                    for each in other_page_prices:
+                        page_one_price_list.append(each.text.strip()[1:])
                     start = start + 1
-            returndictionary[eachtype] = page_one_item_list
+            returndictionary[eachtype] = page_one_price_list
 
         return(returndictionary)
     else:
         print("gender choice not recongized: {}".format(gender))
 
-#mensUO = UOwebscrape("mens")
+#mensUO = UOpricescrape("mens")
 
 #json = json.dumps(mensUO)
-#f = open("UOmensdictionary.json","w")
+#f = open("price_UOmensdictionary.json","w")
 #f.write(json)
 #f.close()
 
-#womensUO = UOwebscrape("womens")
+womensUO = UOpricescrape("womens")
 
-#json = json.dumps(womensUO)
-#f = open("UOwomensdictionary.json","w")
-#f.write(json)
-#f.close()
+json = json.dumps(womensUO)
+f = open("price_UOwomensdictionary.json","w")
+f.write(json)
+f.close()
