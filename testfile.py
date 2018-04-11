@@ -77,9 +77,9 @@ def UOpricescrape(gender):
         categories = ["dresses", "clothing", "jackets", "bottoms", "intimates", "swimwear", "vintage-clothing", "beauty", "accessories", "shoes"]
         for eachtype in categories:
             if eachtype == "vintage-clothing":
-                pageonerequesturl = baseurl + "-new-" + eachtype
+                pageonerequesturl = baseurl + "new-" + eachtype
             elif eachtype == "swimwear":
-                pageonerequesturl = baseurl + "new-" + gender + eachtype
+                pageonerequesturl = baseurl + "new-" + gender + '-' + eachtype
             elif eachtype == "dresses":
                 pageonerequesturl = baseurl + "new-" + eachtype
             else:
