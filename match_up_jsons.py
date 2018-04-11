@@ -32,10 +32,13 @@ im = json.loads(im_read)
 f_im.close()
 
 ### check lengths and that all things are there
-
 for each in pw:
     print(len(pw[each]))
 
+print("\n")
+print(len(pw["beauty"]))
+for each in pw["beauty"]:
+    print(each)
 print("\n")
 
 for each in iw:
@@ -50,6 +53,13 @@ print("\n")
 
 for each in im:
     print(len(im[each]))
+
+### unsure what the extras are, but just gonna go for it
+
+n = 0
+while n < 144:
+    print("{} -- {}".format(iw["beauty"][n], pw["beauty"][n]))
+    n = n + 1
 
 ### match up with each other
 ### make up large dictionary
