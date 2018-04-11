@@ -94,7 +94,7 @@ while m < 7:
 
 #print(mens)
 ### make up large dictionary
-urbanoutfitters = {"womens": womens, "mens": mens}
+urbanoutfitters = {"women": womens, "men": mens}
 
 ### read into SQL database?
 def erase_tables(conn, cur):
@@ -175,3 +175,41 @@ def make_db(db_name):
     return("Success making database & tables.")
 
 make_db('storeitem.db')
+
+### need to add data to database
+### add to "extra" tables first
+
+### Gender table
+# just insert "Men" and "Women"
+# will autoincrement labels
+gend = ["men", "women"]
+
+def insert_gend(gender_list):
+    conn = sqlite3.connect("storeitem.db")
+    cur = conn.cursor()
+    insertion = (gender_list[0], gender_list[1])
+    insertstatement = "insert into Gender "
+    insertstatement += "values (NULL, ?, ?)"
+    cur.execute(insertstatement, insertion)
+    conn.commit()
+    conn.close()
+
+### Brand table
+# insert "AmericanEagle" and "UrbanOutfitters"
+# will autoincrement labels
+bran = ["AmericanEagle", "UrbanOutfitters"]
+
+### Category table
+# insert the keys of the mens & womens dictionaries (no duplicates)
+# will autoincrement labels
+cats = []
+for each in urbanoutfitters: #men women
+    for every in urbanoutfitters[each]:
+        if every not in cats:
+            cats.append(every)
+
+#print(cats)
+
+### Item table
+# brandid, genderid, categoryid will all be dependent on the other tables
+# itemname and listprice will come from dictionary tuples
