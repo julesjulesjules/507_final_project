@@ -59,9 +59,9 @@ def UOwebscrape(gender):
         categories = ["dresses", "clothing", "jackets", "bottoms", "intimates", "swimwear", "vintage-clothing", "beauty", "accessories", "shoes"]
         for eachtype in categories:
             if eachtype == "vintage-clothing":
-                pageonerequesturl = baseurl + "-new-" + eachtype
+                pageonerequesturl = baseurl + "new-" + eachtype
             elif eachtype == "swimwear":
-                pageonerequesturl = baseurl + "new-" + gender + eachtype
+                pageonerequesturl = baseurl + "new-" + gender + '-' + eachtype
             elif eachtype == "dresses":
                 pageonerequesturl = baseurl + "new-" + eachtype
             else:
@@ -74,7 +74,7 @@ def UOwebscrape(gender):
             page_one_item_list = []
             n = 0
             for each in page_items:
-                if n < 22:
+                if n < 21:
                     pass
                 else:
                     page_one_item_list.append(each.text.strip())
@@ -93,7 +93,7 @@ def UOwebscrape(gender):
                     otheritems = nextpage_soup.find_all(itemprop = "name")
                     n = 0
                     for each in otheritems:
-                        if n < 22:
+                        if n < 21:
                             pass
                         else:
                             page_one_item_list.append(each.text.strip())
