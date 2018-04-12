@@ -187,17 +187,31 @@ gend = ["men", "women"]
 def insert_gend(gender_list):
     conn = sqlite3.connect("storeitem.db")
     cur = conn.cursor()
-    insertion = (gender_list[0], gender_list[1])
-    insertstatement = "insert into Gender "
-    insertstatement += "values (NULL, ?, ?)"
-    cur.execute(insertstatement, insertion)
-    conn.commit()
+    for each in gender_list:
+        insertstatement = "insert into Gender "
+        insertstatement += "values (NULL, '{}')".format(each)
+        cur.execute(insertstatement)
+        conn.commit()
     conn.close()
+
+insert_gend(gend)
 
 ### Brand table
 # insert "AmericanEagle" and "UrbanOutfitters"
 # will autoincrement labels
 bran = ["AmericanEagle", "UrbanOutfitters"]
+
+def insert_brand(brand_list):
+    conn = sqlite3.connect("storeitem.db")
+    cur = conn.cursor()
+    for each in brand_list:
+        insertstatement = "insert into Brand "
+        insertstatement += "values (NULL, '{}')".format(each)
+        cur.execute(insertstatement)
+        conn.commit()
+    conn.close()
+
+insert_brand(bran)
 
 ### Category table
 # insert the keys of the mens & womens dictionaries (no duplicates)
@@ -207,9 +221,43 @@ for each in urbanoutfitters: #men women
     for every in urbanoutfitters[each]:
         if every not in cats:
             cats.append(every)
-
 #print(cats)
+
+def insert_cates(cate_list):
+    conn = sqlite3.connect("storeitem.db")
+    cur = conn.cursor()
+    for each in cate_list:
+        insertstatement = "insert into Category "
+        insertstatement += "values (NULL, '{}')".format(each)
+        cur.execute(insertstatement)
+        conn.commit()
+    conn.close()
+
+insert_cates(cats)
 
 ### Item table
 # brandid, genderid, categoryid will all be dependent on the other tables
 # itemname and listprice will come from dictionary tuples
+
+def insert_items(brand_dictionary):
+    conn = sqlite3.connect("storeitem.db")
+    cur = conn.cursor()
+    for each_gender in brand_dictionary:
+        #select code for men
+        selectstatement = '''select Id FROM Gender WHERE Label='{}';'''.format(each_gender)
+        cur.execute(selectstatement)
+        gend_type = cur.fetchone()[0]
+        for each_category in brand_dictionary[each_gender]:
+            #select code for category
+            selectstatement = '''select Id FROM Category WHERE Type='{}';'''.format(each_category)
+            cur.execute(selectstatement)
+            cate_type = cur.fetchone()[0]
+            for each_item in brand_dictionary[each_gender][each_category]:
+                #insert statement, have all the information
+                insertstatement = '''insert into Items '''
+                insertstatement += '''values (2, "{}", "{}", "{}", "{}");'''.format(gend_type, each_item[0], each_item[1], cate_type)
+                cur.execute(insertstatement)
+                conn.commit()
+    conn.close()
+
+insert_items(urbanoutfitters)
