@@ -10,27 +10,56 @@ sys.stdout = codecs.getwriter('utf-8')(sys.stdout.buffer)
 ### read in jsons
 
 
-f_pw = open("price_UOwomensdictionary.json","r")
-pw_read = f_pw.read()
-pw = json.loads(pw_read)
-f_pw.close()
+#f_pw = open("price_UOwomensdictionary.json","r")
+#pw_read = f_pw.read()
+#pw = json.loads(pw_read)
+#f_pw.close()
 #print(pw)
 
-f_pm = open("price_UOmensdictionary.json","r")
-pm_read = f_pm.read()
-pm = json.loads(pm_read)
-f_pm.close()
+#f_pm = open("price_UOmensdictionary.json","r")
+#pm_read = f_pm.read()
+#pm = json.loads(pm_read)
+#f_pm.close()
 
-f_iw = open("UOwomensdictionary.json","r")
-iw_read = f_iw.read()
-iw = json.loads(iw_read)
-f_iw.close()
+#f_iw = open("UOwomensdictionary.json","r")
+#iw_read = f_iw.read()
+#iw = json.loads(iw_read)
+#f_iw.close()
 #print(iw)
 
-f_im = open("UOmensdictionary.json","r")
-im_read = f_im.read()
-im = json.loads(im_read)
-f_im.close()
+#f_im = open("UOmensdictionary.json","r")
+#im_read = f_im.read()
+#im = json.loads(im_read)
+#f_im.close()
+
+
+
+def read_in_UOfiles():
+    f_pw = open("price_UOwomensdictionary.json","r")
+    pw_read = f_pw.read()
+    pw = json.loads(pw_read)
+    f_pw.close()
+    #print(pw)
+
+    f_pm = open("price_UOmensdictionary.json","r")
+    pm_read = f_pm.read()
+    pm = json.loads(pm_read)
+    f_pm.close()
+
+    f_iw = open("UOwomensdictionary.json","r")
+    iw_read = f_iw.read()
+    iw = json.loads(iw_read)
+    f_iw.close()
+    #print(iw)
+
+    f_im = open("UOmensdictionary.json","r")
+    im_read = f_im.read()
+    im = json.loads(im_read)
+    f_im.close()
+
+    uofiles = [iw, pw, im, pm]
+    return uofiles
+
 
 ### check lengths and that all things are there
 #for each in pw:
@@ -64,33 +93,37 @@ f_im.close()
 
 ### match up with each other
 
-womens = {}
-m = 0
-categories = ["dresses", "clothing", "jackets", "bottoms", "intimates", "swimwear", "vintage-clothing", "beauty", "accessories", "shoes"]
-while m < 10:
-    itemlength = len(iw[categories[m]])
-    p = 0
-    fulllist = []
-    while p < itemlength:
-        fulllist.append((iw[categories[m]][p], pw[categories[m]][p]))
-        p = p + 1
-    womens[categories[m]] = fulllist
-    m = m + 1
+def matchUOwomens(iw, pw):
+    womens = {}
+    m = 0
+    categories = ["dresses", "clothing", "jackets", "bottoms", "intimates", "swimwear", "vintage-clothing", "beauty", "accessories", "shoes"]
+    while m < 10:
+        itemlength = len(iw[categories[m]])
+        p = 0
+        fulllist = []
+        while p < itemlength:
+            fulllist.append((iw[categories[m]][p], pw[categories[m]][p]))
+            p = p + 1
+        womens[categories[m]] = fulllist
+        m = m + 1
+    return(womens)
 
 #print(womens)
 
-mens = {}
-m = 0
-categories = ["graphic-tees", "clothing", "jackets-coats", "bottoms", "shoes", "accessories", "grooming"]
-while m < 7:
-    itemlength = len(im[categories[m]])
-    p = 0
-    fulllist = []
-    while p < itemlength:
-        fulllist.append((im[categories[m]][p], pm[categories[m]][p]))
-        p = p + 1
-    mens[categories[m]] = fulllist
-    m = m + 1
+def matchUOmens(im, pm):
+    mens = {}
+    m = 0
+    categories = ["graphic-tees", "clothing", "jackets-coats", "bottoms", "shoes", "accessories", "grooming"]
+    while m < 7:
+        itemlength = len(im[categories[m]])
+        p = 0
+        fulllist = []
+        while p < itemlength:
+            fulllist.append((im[categories[m]][p], pm[categories[m]][p]))
+            p = p + 1
+        mens[categories[m]] = fulllist
+        m = m + 1
+    return(mens)
 
 #print(mens)
 ### make up large dictionary
