@@ -15,21 +15,30 @@ from testfile.py import *
 
 ################################################################################
 
-# if i want to rescrape urban outfitters then:
-    # run UOpricescrape(gender) from testfile.py
-    # can probably create a function for writing the files???
-    mensUO = UOpricescrape("mens")
-    json = json.dumps(mensUO)
-    f = open("price_UOmensdictionary.json","w")
-    f.write(json)
-    f.close()
+# if i want to rebuild the database completely:
 
-    womensUO = UOpricescrape("womens")
-    json = json.dumps(womensUO)
-    f = open("price_UOwomensdictionary.json","w")
-    f.write(json)
-    f.close()
+#need to re-scrape Urban Outfitters
 
-# if i want to rescrape anthropologie:
+# run UOpricescrape(gender) from testfile.py
+# can probably create a function for writing the files???
+mensUO = UOpricescrape("mens")
+json_muo = json.dumps(mensUO)
+f_muo = open("price_UOmensdictionary.json","w")
+f_muo.write(json_muo)
+f_muo.close()
 
-# if i want to rebuild the database:
+womensUO = UOpricescrape("womens")
+json_wuo = json.dumps(womensUO)
+f_wuo = open("price_UOwomensdictionary.json","w")
+f_wuo.write(json_wuo)
+f_wuo.close()
+
+# need to rescrape anthropologie:
+
+
+
+# if i want to rebuild the database from current files:
+
+
+
+# if i want to use the current database
