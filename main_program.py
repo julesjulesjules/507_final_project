@@ -14,3 +14,10 @@ sys.stdout = codecs.getwriter('utf-8')(sys.stdout.buffer)
 from testfile.py import *
 
 ################################################################################
+
+# if i want to rescrape urban outfitters then:
+    # run UOpricescrape(gender) from testfile.py
+
+# if i want to rescrape anthropologie:
+
+# if i want to rebuild the database:
