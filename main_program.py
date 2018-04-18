@@ -11,10 +11,11 @@ sys.stdout = codecs.getwriter('utf-8')(sys.stdout.buffer)
 ################################################################################
 # internal
 
-from testfile.py import *
-from match_up_jsons.py import *
-from anthroscrape.py import *
-from anthro_json.py import *
+from testfile import *
+from match_up_jsons import *
+from anthroscrape import *
+from anthro_json import *
+from working_clothes_functions import *
 
 ################################################################################
 
@@ -39,11 +40,26 @@ if user_action == "rebuild":
     f_wuo.write(json_wuo)
     f_wuo.close()
 
+    mensUOitems = UOwebscrape("mens")
+
+    json_muoi = json.dumps(mensUOitems)
+    f_muoi = open("UOmensdictionary.json","w")
+    f_muoi.write(json_muoi)
+    f_muoi.close()
+
+    womensUOitems = UOwebscrape("womens")
+
+    json_wuoi = json.dumps(womensUOitems)
+    f_wuoi = open("UOwomensdictionary.json","w")
+    f_wuoi.write(json_wuoi)
+    f_wuoi.close()
+
+
     # need to rescrape anthropologie:
     ascrape = anthroScrape()
     json_ant = json.dumps(ascrape)
     f_ant = open("anthropologie_scrape.json","w")
-    f_ant.write(json)
+    f_ant.write(json_ant)
     f_ant.close()
 
 ### then continue
