@@ -16,6 +16,9 @@ from match_up_jsons.py import *
 
 ################################################################################
 
+user_action = input("What would you like to do?")
+
+if user_action == "rebuild":
 # if i want to rebuild the database completely:
 
     #need to re-scrape Urban Outfitters
@@ -37,13 +40,37 @@ from match_up_jsons.py import *
     # need to rescrape anthropologie:
 
 
-
+### then continue
+elif user_action == "current":
 # if i want to rebuild the database from current files:
     # just need to read in files:
     uofiles = read_in_UOfiles()
     womens = matchUOwomens(uofiles[0], uofiles[1])
     mens = matchUOmens(uofiles[2], uofiles[3])
 
+    urbanoutfitters = {"women": womens, "men": mens}
+    #set up db
+    make_db('storeitem.db')
+    #load in all accessory tables
 
+    gend = ["men", "women"]
+    insert_gend(gend)
 
-# if i want to use the current database
+    bran = ["AmericanEagle", "UrbanOutfitters"]
+    insert_brand(bran)
+
+    cats = []
+    for each in urbanoutfitters: #men women
+        for every in urbanoutfitters[each]:
+            if every not in cats:
+                cats.append(every)
+    insert_cates(cats)
+
+    insert_items(urbanoutfitters)
+
+elif user_action == "database":
+    # if i want to use the current database
+    pass
+
+else:
+    print("unrecognized command: {}".format(user_action))
