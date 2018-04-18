@@ -3,7 +3,7 @@ import json
 from bs4 import BeautifulSoup
 import codecs
 import sys
-sys.stdout = codecs.getwriter('utf-8')(sys.stdout.buffer)
+#sys.stdout = codecs.getwriter('utf-8')(sys.stdout.buffer)
 
 
 def UOwebscrape(gender):
@@ -114,9 +114,9 @@ def UOwebscrape(gender):
 #f.write(json)
 #f.close()
 
-womensUO = UOwebscrape("womens")
+#womensUO = UOwebscrape("womens")
 
-json = json.dumps(womensUO)
-f = open("UOwomensdictionary.json","w")
-f.write(json)
-f.close()
+#json = json.dumps(womensUO)
+#f = open("UOwomensdictionary.json","w")
+#f.write(json)
+#f.close()
