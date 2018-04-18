@@ -13,6 +13,8 @@ sys.stdout = codecs.getwriter('utf-8')(sys.stdout.buffer)
 
 from testfile.py import *
 from match_up_jsons.py import *
+from anthroscrape.py import *
+from anthro_json.py import *
 
 ################################################################################
 
@@ -38,7 +40,11 @@ if user_action == "rebuild":
     f_wuo.close()
 
     # need to rescrape anthropologie:
-
+    ascrape = anthroScrape()
+    json_ant = json.dumps(ascrape)
+    f_ant = open("anthropologie_scrape.json","w")
+    f_ant.write(json)
+    f_ant.close()
 
 ### then continue
 elif user_action == "current":
@@ -47,6 +53,9 @@ elif user_action == "current":
     uofiles = read_in_UOfiles()
     womens = matchUOwomens(uofiles[0], uofiles[1])
     mens = matchUOmens(uofiles[2], uofiles[3])
+
+    antfile = read_in_ANTfiles()
+    anthro_w = match_anthros(antfile)
 
     urbanoutfitters = {"women": womens, "men": mens}
     #set up db
@@ -68,9 +77,11 @@ elif user_action == "current":
 
     insert_items(urbanoutfitters)
 
-elif user_action == "database":
-    # if i want to use the current database
-    pass
-
 else:
     print("unrecognized command: {}".format(user_action))
+
+## then just use database
+
+#elif user_action == "database":
+    # if i want to use the current database
+#    pass
