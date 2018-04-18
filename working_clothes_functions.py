@@ -108,19 +108,19 @@ def UOwebscrape(gender):
         print("gender choice not recongized: {}".format(gender))
 
 
-mensUOitems = UOwebscrape("mens")
+#mensUOitems = UOwebscrape("mens")
 
-json_muoi = json.dumps(mensUOitems)
-f_muoi = open("UOmensdictionary.json","w")
-f_muoi.write(json_muoi)
-f_muoi.close()
+#json_muoi = json.dumps(mensUOitems)
+#f_muoi = open("UOmensdictionary.json","w")
+#f_muoi.write(json_muoi)
+#f_muoi.close()
 
-womensUOitems = UOwebscrape("womens")
+#womensUOitems = UOwebscrape("womens")
 
-json_wuoi = json.dumps(womensUOitems)
-f_wuoi = open("UOwomensdictionary.json","w")
-f_wuoi.write(json_wuoi)
-f_wuoi.close()
+#json_wuoi = json.dumps(womensUOitems)
+#f_wuoi = open("UOwomensdictionary.json","w")
+#f_wuoi.write(json_wuoi)
+#f_wuoi.close()
 
 #mensUO = UOwebscrape("mens")
 

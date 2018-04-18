@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 import codecs
 import sys
 import sqlite3
-sys.stdout = codecs.getwriter('utf-8')(sys.stdout.buffer)
+#sys.stdout = codecs.getwriter('utf-8')(sys.stdout.buffer)
 
 
 ### read in jsons
@@ -95,16 +95,22 @@ def read_in_UOfiles():
 
 def matchUOwomens(iw, pw):
     womens = {}
+    print(type(iw))
     m = 0
     categories = ["dresses", "clothing", "jackets", "bottoms", "intimates", "swimwear", "vintage-clothing", "beauty", "accessories", "shoes"]
     while m < 10:
+        print(m)
+        print(len(iw[categories[m]]))
+        print(len(pw[categories[m]]))
         itemlength = len(iw[categories[m]])
+        #print(itemlength)
         p = 0
         fulllist = []
         while p < itemlength:
             fulllist.append((iw[categories[m]][p], pw[categories[m]][p]))
             p = p + 1
         womens[categories[m]] = fulllist
+        #print(len(womens))
         m = m + 1
     return(womens)
 
@@ -127,7 +133,7 @@ def matchUOmens(im, pm):
 
 #print(mens)
 ### make up large dictionary
-urbanoutfitters = {"women": womens, "men": mens}
+#urbanoutfitters = {"women": womens, "men": mens}
 
 ### read into SQL database?
 def erase_tables(conn, cur):
@@ -207,7 +213,7 @@ def make_db(db_name):
     conn.close()
     return("Success making database & tables.")
 
-make_db('storeitem.db')
+#make_db('storeitem.db')
 
 ### need to add data to database
 ### add to "extra" tables first
@@ -215,7 +221,7 @@ make_db('storeitem.db')
 ### Gender table
 # just insert "Men" and "Women"
 # will autoincrement labels
-gend = ["men", "women"]
+#gend = ["men", "women"]
 
 def insert_gend(gender_list):
     conn = sqlite3.connect("storeitem.db")
@@ -227,12 +233,12 @@ def insert_gend(gender_list):
         conn.commit()
     conn.close()
 
-insert_gend(gend)
+#insert_gend(gend)
 
 ### Brand table
 # insert "AmericanEagle" and "UrbanOutfitters"
 # will autoincrement labels
-bran = ["AmericanEagle", "UrbanOutfitters"]
+#bran = ["AmericanEagle", "UrbanOutfitters"]
 
 def insert_brand(brand_list):
     conn = sqlite3.connect("storeitem.db")
@@ -244,16 +250,16 @@ def insert_brand(brand_list):
         conn.commit()
     conn.close()
 
-insert_brand(bran)
+#insert_brand(bran)
 
 ### Category table
 # insert the keys of the mens & womens dictionaries (no duplicates)
 # will autoincrement labels
-cats = []
-for each in urbanoutfitters: #men women
-    for every in urbanoutfitters[each]:
-        if every not in cats:
-            cats.append(every)
+#cats = []
+#for each in urbanoutfitters: #men women
+#    for every in urbanoutfitters[each]:
+#        if every not in cats:
+#            cats.append(every)
 #print(cats)
 
 def insert_cates(cate_list):
@@ -266,7 +272,7 @@ def insert_cates(cate_list):
         conn.commit()
     conn.close()
 
-insert_cates(cats)
+#insert_cates(cats)
 
 ### Item table
 # brandid, genderid, categoryid will all be dependent on the other tables
@@ -293,4 +299,4 @@ def insert_items(brand_dictionary):
                 conn.commit()
     conn.close()
 
-insert_items(urbanoutfitters)
+#insert_items(urbanoutfitters)

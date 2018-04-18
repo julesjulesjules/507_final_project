@@ -95,6 +95,7 @@ elif user_action == "current":
     insert_cates(cats)
 
     insert_items(urbanoutfitters)
+    insert_items_ant(anthro_w)
 
 else:
     print("unrecognized command: {}".format(user_action))

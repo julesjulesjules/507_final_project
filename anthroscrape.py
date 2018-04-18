@@ -3,7 +3,7 @@ import json
 from bs4 import BeautifulSoup
 import codecs
 import sys
-sys.stdout = codecs.getwriter('utf-8')(sys.stdout.buffer)
+#sys.stdout = codecs.getwriter('utf-8')(sys.stdout.buffer)
 
 def anthroScrape():
     baseurl = "https://www.anthropologie.com/new-"
@@ -38,7 +38,7 @@ def anthroScrape():
                 other_page_items = page_soup.find_all(class_ = "c-product-tile__h3 c-product-tile__h3--regular")
                 other_page_prices = page_soup.find_all(class_ = "c-product-meta__current-price")
 
-                for each in other_page_prices:
+                for each in other_page_items:
                     cat_item_list.append([each.text.strip()])
                 for each in other_page_prices:
                     cat_price_list.append(each.text.strip()[1:])
@@ -47,12 +47,12 @@ def anthroScrape():
         returndictionary[eachtype] = [cat_item_list, cat_price_list]
     return(returndictionary)
 
-ascrape = anthroScrape()
+#ascrape = anthroScrape()
 
-json = json.dumps(ascrape)
-f = open("anthropologie_scrape.json","w")
-f.write(json)
-f.close()
+#json = json.dumps(ascrape)
+#f = open("anthropologie_scrape.json","w")
+#f.write(json)
+#f.close()
 
 
 #<h3 class="c-product-tile__h3 c-product-tile__h3--regular" data-qa-prod-title="">
