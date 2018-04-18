@@ -65,7 +65,7 @@ elif user_action == "current":
     gend = ["men", "women"]
     insert_gend(gend)
 
-    bran = ["AmericanEagle", "UrbanOutfitters"]
+    bran = ["Anthropologie", "UrbanOutfitters"]
     insert_brand(bran)
 
     cats = []
@@ -73,6 +73,9 @@ elif user_action == "current":
         for every in urbanoutfitters[each]:
             if every not in cats:
                 cats.append(every)
+    for each in anthro_w:
+        if each not in cats:
+            cats.append(each)
     insert_cates(cats)
 
     insert_items(urbanoutfitters)
