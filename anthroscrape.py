@@ -14,9 +14,9 @@ def anthroScrape():
         page_text = requests.get(pagerequesturl).text
         page_soup = BeautifulSoup(page_text, 'html.parser')
         page_items = page_soup.find_all(class_ = "c-product-tile__h3 c-product-tile__h3--regular")
-        print(len(page_items))
+        #print(len(page_items))
         page_prices = page_soup.find_all(class_ = "c-product-meta__current-price")
-        print(len(page_prices))
+        #print(len(page_prices))
 
         if len(page_items) == len(page_prices):
             cat_item_list = []
