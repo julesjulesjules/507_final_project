@@ -136,9 +136,14 @@ def compare_men_women():
         print(e)
         print("Failed to connect to database.")
 
+    user_c = input("Choose: max/average")
+    if user_c == "max":
+        agg = "MAX"
+    if user_c == "average":
+        agg = "AVG"
     #select category names, average price
     #men
-    statement = '''select Type, round(AVG(ListPrice), 2) '''
+    statement = '''select Type, round({}(ListPrice), 2) '''.format(agg)
     statement += '''FROM Items JOIN Category ON Items.CategoryId=Category.Id '''
     statement += '''GROUP BY Type '''
     statement += '''HAVING GenderId=1;'''
@@ -148,7 +153,7 @@ def compare_men_women():
         men_d["men " + each[0]] = each[1]
 
     #women
-    statement = '''select Type, round(AVG(ListPrice), 2) '''
+    statement = '''select Type, round({}(ListPrice), 2) '''.format(agg)
     statement += '''FROM Items JOIN Category ON Items.CategoryId=Category.Id '''
     statement += '''GROUP BY Type '''
     statement += '''HAVING GenderId=2;'''
