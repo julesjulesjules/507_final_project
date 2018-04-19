@@ -32,7 +32,7 @@ while check != 1:
     # if i want to rebuild the database from current files:
         just_rebuild()
         check = 1
-    elif user_action = "none":
+    elif user_action == "none":
         print("Excellent, moving on then.")
         check = 1
     else:
