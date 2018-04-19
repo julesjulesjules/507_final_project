@@ -56,8 +56,9 @@ while check != 1:
         user_action = input("What would you like to do (rebuild/current/none)? ")
 
 ## then just use database
+print("\n")
 print("***********************************************************************")
-print("                          Clothing Search                              ")
+print("                    New Arrivals Clothing Search                       ")
 print("***********************************************************************")
 print("\n")
 print("***********************************************************************")
@@ -68,7 +69,9 @@ if user_instruct_or_no == "help":
     help_text = load_help_text()
     print(help_text)
     ### print instructions
+    print("\n")
     print("***********************************************************************")
+    print("\n")
 elif user_instruct_or_no == "next":
     pass
 else:
