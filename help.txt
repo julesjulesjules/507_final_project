@@ -1,0 +1,4 @@
+pattern		searches for pattern mentioned in item name
+price		searches for most or least expensive items in specific categories
+compare		shows a bar chart of the average or max prices of items in all categories
+exit		quits the program
