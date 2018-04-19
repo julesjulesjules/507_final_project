@@ -44,7 +44,14 @@ print("***********************************************************************")
 print("                          Clothing Search                              ")
 print("***********************************************************************")
 print("\n")
-
-#elif user_action == "database":
-    # if i want to use the current database
-#    pass
+print("***********************************************************************")
+print("          For instructions, type help, otherwise type next             ")
+user_instruct_or_no = input(">>>  ")
+if user_instruct_or_no == "help":
+    pass
+    ### print instructions
+elif user_instruct_or_no == "next":
+    pass
+else:
+    print("unrecognized command: {}".format(user_action))
+    #### probably should also make this a while loop
