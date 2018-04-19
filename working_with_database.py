@@ -6,17 +6,19 @@
 import codecs
 import sys
 import sqlite3
-sys.stdout = codecs.getwriter('utf-8')(sys.stdout.buffer)
-
-try:
-    conn = sqlite3.connect("storeitem.db")
-    cur = conn.cursor()
-except Error as e:
-    print(e)
-    print("Failed to connect to database.")
+#sys.stdout = codecs.getwriter('utf-8')(sys.stdout.buffer)
+import plotly.plotly as py
+import plotly.graph_objs as go
 
 ### find a pattern:
 def find_a_pattern():
+    try:
+        conn = sqlite3.connect("storeitem.db")
+        cur = conn.cursor()
+    except Error as e:
+        print(e)
+        print("Failed to connect to database.")
+
     pat_choice = input("What pattern are you looking for? stripe/dot/floral/plaid ")
     gend_choice = input("Choose mens/womens/both: ")
     how_many = input("How many items would you like to look at? #/all ")
@@ -45,11 +47,19 @@ def find_a_pattern():
     print("\n")
     print("*******************************************************************")
     print("\n")
+    conn.close()
     #return()
 
 #find_a_pattern()
 
 def find_high_low_price():
+    try:
+        conn = sqlite3.connect("storeitem.db")
+        cur = conn.cursor()
+    except Error as e:
+        print(e)
+        print("Failed to connect to database.")
+
     ### need a list of items to look for?
     il_statement = '''select Type from Category'''
     cur.execute(il_statement)
@@ -113,9 +123,66 @@ def find_high_low_price():
     print("\n")
     print("*******************************************************************")
     print("\n")
+    conn.close()
     #return()
-
 
 #find_high_low_price()
 
-conn.close()
+def compare_men_women():
+    try:
+        conn = sqlite3.connect("storeitem.db")
+        cur = conn.cursor()
+    except Error as e:
+        print(e)
+        print("Failed to connect to database.")
+
+    #select category names, average price
+    #men
+    statement = '''select Type, round(AVG(ListPrice), 2) '''
+    statement += '''FROM Items JOIN Category ON Items.CategoryId=Category.Id '''
+    statement += '''GROUP BY Type '''
+    statement += '''HAVING GenderId=1;'''
+    cur.execute(statement)
+    men_d = {}
+    for each in cur:
+        men_d["men " + each[0]] = each[1]
+
+    #women
+    statement = '''select Type, round(AVG(ListPrice), 2) '''
+    statement += '''FROM Items JOIN Category ON Items.CategoryId=Category.Id '''
+    statement += '''GROUP BY Type '''
+    statement += '''HAVING GenderId=2;'''
+    cur.execute(statement)
+    women_d = {}
+    for each in cur:
+        women_d["women " + each[0]] = each[1]
+    conn.close
+    # do it for men and women
+    #put it into list for plotly
+    x = []
+    y = []
+    for each in women_d:
+        x.append(each)
+        y.append(women_d[each])
+    for every in men_d:
+        x.append(every)
+        y.append(men_d[every])
+    # use plotly to graph it all
+
+    data = [go.Bar(
+                x=x,
+                y=y,
+                text=y,
+                textposition = 'auto',
+                marker=dict(
+                    color='rgb(158,202,225)',
+                    line=dict(
+                        color='rgb(8,48,107)',
+                        width=1.5),
+                ),
+                opacity=0.6
+            )]
+
+    py.plot(data, filename='bar-direct-labels')
+
+#compare_men_women()
