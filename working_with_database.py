@@ -38,5 +38,41 @@ def find_a_pattern():
 
     return(statement)
 
-print(find_a_pattern())
+#print(find_a_pattern())
+
+def find_high_low_price():
+    ### need a list of items to look for?
+    cat_choice = input("What type of items are you looking for? ")
+    gend_choice = input("Choose mens/womens/both: ")
+    how_many = input("How many items would you like to look at? #/all ")
+    top_bottom = input("Are you looking for most/least expensive? ")
+
+    cat_statement = '''select CategoryId FROM Category WHERE Type="{}"'''.format(cat_choice)
+    ### grab the number, use it below
+    ## save in cat_num
+
+    statement = '''select Brand.Name, ItemName, ListPrice '''
+    statement += '''FROM Items JOIN Brand ON Brand.Id=Items.BrandId '''
+
+    if gend_choice == "mens":
+        statement += '''WHERE Items.GenderId=1 '''
+        statement += '''AND Items.CategoryId={} '''.format(cat_num)
+    if gend_choice == "womens":
+        statement += '''WHERE Items.GenderId=2 '''
+        statement += '''AND Items.CategoryId={} '''.format(cat_num)
+    if gend_choice == "both":
+        statement += '''WHERE Items.CategoryId={} '''.format(cat_num)
+
+    if how_many != "all":
+        statement += '''LIMIT {}'''.format(how_many)
+
+    if top_bottom == "most":
+        statement += '''DESC '''
+    if top_bottom == "least":
+        statement += '''ASC '''
+
+
+
+
+
 conn.close()
