@@ -36,9 +36,13 @@ def find_a_pattern():
     if how_many != "all":
         statement += '''LIMIT {}'''.format(how_many)
 
-    return(statement)
+    cur.execute(statement)
+    for each in cur:
+        print("{:<15} {:<30} {:<8}".format(each[0], each[1][:30], each[2]))
 
-#print(find_a_pattern())
+    #return()
+
+#find_a_pattern()
 
 def find_high_low_price():
     ### need a list of items to look for?
@@ -86,7 +90,7 @@ def find_high_low_price():
         statement += '''AND Items.CategoryId={} '''.format(cat_num)
     if gend_choice == "both":
         statement += '''WHERE Items.CategoryId={} '''.format(cat_num)
-        
+
     if top_bottom == "most":
         statement += '''ORDER BY ListPrice DESC '''
     if top_bottom == "least":
@@ -95,11 +99,13 @@ def find_high_low_price():
     if how_many != "all":
         statement += '''LIMIT {} '''.format(how_many)
 
+    cur.execute(statement)
+    for each in cur:
+        print("{:<15} {:<30} {:<8}".format(each[0], each[1][:30], each[2]))
+
+    #return()
 
 
-    return(statement)
-
-
-print(find_high_low_price())
+#find_high_low_price()
 
 conn.close()
