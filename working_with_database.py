@@ -136,7 +136,7 @@ def compare_men_women():
         print(e)
         print("Failed to connect to database.")
 
-    user_c = input("Choose: max/average")
+    user_c = input("Choose max/average: ")
     if user_c == "max":
         agg = "MAX"
     if user_c == "average":
