@@ -32,15 +32,34 @@ class TestAnthroProcess(unittest.TestCase):
 #    def test_bar_table(self):
 
 
-#class TestSQLRequests(unittest.TestCase):
+class TestSQLRequests(unittest.TestCase):
 
-#    def test_pattern(self):
-#        conn = sqlite3.connect("storeitem.db")
-#        cur = conn.cursor()
-#        floral = '''select Brand.Name, ItemName, ListPrice FROM Items JOIN
-#                    Brand ON Brand.Id=Items.BrandId
-#                    WHERE Items.GenderId=2
-#                    AND ItemName LIKE "%floral%" LIMIT 10'''
+    def test_pattern(self):
+        conn = sqlite3.connect("storeitem.db")
+        cur = conn.cursor()
+        floral = '''select Brand.Name, ItemName, ListPrice FROM Items JOIN
+                    Brand ON Brand.Id=Items.BrandId
+                    WHERE Items.GenderId=2
+                    AND ItemName LIKE "%floral%" LIMIT 10'''
+        cur.execute(floral)
+        fo = cur.fetchone()
+        self.assertEqual(fo[0], "UrbanOutfitters")
+        self.assertEqual(len(fo), 3)
+        self.assertIn("Floral", fo[1])
+
+    def test_findhl(self):
+        conn = sqlite3.connect("storeitem.db")
+        cur = conn.cursor()
+        high = '''select Brand.Name, ItemName, ListPrice
+                    FROM Items JOIN Brand ON Brand.Id=Items.BrandId
+                    WHERE Items.GenderId=1
+                    AND Items.CategoryId=11
+                    ORDER BY ListPrice DESC LIMIT 10'''
+        cur.execute(high)
+        hg = []
+        for each in cur:
+            hg.append(each)
+        self.assertGreater(hg[0][2], hg[9][2])
 
 if __name__ == '__main__':
     unittest.main()
