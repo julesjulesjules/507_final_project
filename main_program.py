@@ -26,7 +26,7 @@ def load_help_text():
         return f.read()
 
 ################################################################################
-
+print("\n")
 print("***********************************************************************")
 print("                          Before We Begin                              ")
 print("***********************************************************************")
@@ -63,20 +63,25 @@ print("***********************************************************************")
 print("\n")
 print("***********************************************************************")
 print("          For instructions, type help, otherwise type next             ")
-user_instruct_or_no = input(">>>  ")
 print("\n")
-if user_instruct_or_no == "help":
-    help_text = load_help_text()
-    print(help_text)
-    ### print instructions
-    print("\n")
-    print("***********************************************************************")
-    print("\n")
-elif user_instruct_or_no == "next":
-    pass
-else:
-    print("unrecognized command: {}".format(user_action))
-    #### probably should also make this a while loop
+user_instruct_or_no = input(">>>  ")
+
+check2 = 0
+while check2 != 1:
+    if user_instruct_or_no == "help":
+        help_text = load_help_text()
+        print(help_text)
+        ### print instructions
+        print("\n")
+        print("***********************************************************************")
+        print("\n")
+        check2 = 1
+    elif user_instruct_or_no == "next":
+        check2 = 1
+    else:
+        print("unrecognized command: {}".format(user_action))
+        #### probably should also make this a while loop
+        user_instruct_or_no = input(">>>  ")
 
 ### search
 user_search_action = 0
