@@ -37,9 +37,14 @@ def find_a_pattern():
         statement += '''LIMIT {}'''.format(how_many)
 
     cur.execute(statement)
+    print("\n")
+    print("*******************************************************************")
+    print("\n")
     for each in cur:
         print("{:<15} {:<30} {:<8}".format(each[0], each[1][:30], each[2]))
-
+    print("\n")
+    print("*******************************************************************")
+    print("\n")
     #return()
 
 #find_a_pattern()
@@ -100,9 +105,14 @@ def find_high_low_price():
         statement += '''LIMIT {} '''.format(how_many)
 
     cur.execute(statement)
+    print("\n")
+    print("*******************************************************************")
+    print("\n")
     for each in cur:
         print("{:<15} {:<30} {:<8}".format(each[0], each[1][:30], each[2]))
-
+    print("\n")
+    print("*******************************************************************")
+    print("\n")
     #return()
 
 
