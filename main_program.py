@@ -21,6 +21,21 @@ from working_with_database import *
 
 ################################################################################
 
+def load_help_text():
+    with open('help.txt') as f:
+        return f.read()
+
+################################################################################
+
+print("***********************************************************************")
+print("                          Before We Begin                              ")
+print("***********************************************************************")
+print("\n")
+print("rebuild: re-scrapes websites & builds a new database from updated data ")
+print("current: re-builds the database from current files                     ")
+print("none: moves on to use the database that currently exists               ")
+print("\n")
+
 user_action = input("What would you like to do (rebuild/current/none)? ")
 check = 0
 while check != 1:
@@ -48,10 +63,12 @@ print("\n")
 print("***********************************************************************")
 print("          For instructions, type help, otherwise type next             ")
 user_instruct_or_no = input(">>>  ")
+print("\n")
 if user_instruct_or_no == "help":
-    pass
+    help_text = load_help_text()
+    print(help_text)
     ### print instructions
-    #print("***********************************************************************")
+    print("***********************************************************************")
 elif user_instruct_or_no == "next":
     pass
 else:
@@ -61,11 +78,13 @@ else:
 ### search
 user_search_action = 0
 while user_search_action != "exit":
-    user_search_action = input("What search method would you like, pattern/price: ")
+    user_search_action = input("What search method would you like, pattern/price/compare/exit: ")
     if user_search_action == "pattern":
         find_a_pattern()
     elif user_search_action == "price":
         find_high_low_price()
+    elif user_search_action == "compare":
+        compare_men_women()
     elif user_search_action == "exit":
         print("Goodbye!")
     else:
