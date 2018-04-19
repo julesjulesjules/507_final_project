@@ -95,13 +95,13 @@ def read_in_UOfiles():
 
 def matchUOwomens(iw, pw):
     womens = {}
-    print(type(iw))
+    #print(type(iw))
     m = 0
     categories = ["dresses", "clothing", "jackets", "bottoms", "intimates", "swimwear", "vintage-clothing", "beauty", "accessories", "shoes"]
     while m < 10:
-        print(m)
-        print(len(iw[categories[m]]))
-        print(len(pw[categories[m]]))
+        #print(m)
+        #print(len(iw[categories[m]]))
+        #print(len(pw[categories[m]]))
         itemlength = len(iw[categories[m]])
         #print(itemlength)
         p = 0
