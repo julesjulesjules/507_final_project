@@ -182,22 +182,27 @@ def compare_men_women():
         x.append(every)
         y.append(men_d[every])
     # use plotly to graph it all
+    user_style = input("Bar Chart or Pie Chart? bar/pie ")
+    if user_style == "bar":
+        data = [go.Bar(
+                    x=x,
+                    y=y,
+                    text=y,
+                    textposition = 'auto',
+                    marker=dict(
+                        color='rgb(158,202,225)',
+                        line=dict(
+                            color='rgb(8,48,107)',
+                            width=1.5),
+                    ),
+                    opacity=0.6
+                )]
 
-    data = [go.Bar(
-                x=x,
-                y=y,
-                text=y,
-                textposition = 'auto',
-                marker=dict(
-                    color='rgb(158,202,225)',
-                    line=dict(
-                        color='rgb(8,48,107)',
-                        width=1.5),
-                ),
-                opacity=0.6
-            )]
+        py.plot(data, filename='bar-direct-labels')
+    if user_style == "pie":
+        trace = go.Pie(labels=x, values=y, hoverinfo='label+percent', textinfo='value')
 
-    py.plot(data, filename='bar-direct-labels')
+        py.plot([trace], filename='basic_pie_chart')
     return(rlist)
 
 #compare_men_women()
