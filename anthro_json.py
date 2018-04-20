@@ -34,14 +34,14 @@ def match_anthros(anthro):
     #print(len(matched_dictionary[each]))
 
 
-aant = read_in_ANTfiles()
-for each in aant:
-    print(each)
-    print(len(aant[each][0]))
-    print(len(aant[each][1]))
+#aant = read_in_ANTfiles()
+#for each in aant:
+#    print(each)
+#    print(len(aant[each][0]))
+#    print(len(aant[each][1]))
 
-print(aant["petite-clothing"])
-aant_two = match_anthros(aant)
+#print(aant["petite-clothing"])
+#aant_two = match_anthros(aant)
 #for each in aant_two:
 #    print(each)
 #    print(len(aant_two[each]))
