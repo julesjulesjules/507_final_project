@@ -42,13 +42,15 @@ def find_a_pattern():
     print("\n")
     print("*******************************************************************")
     print("\n")
+    pattern_list = []
     for each in cur:
         print("{:<15} {:<30} {:<8}".format(each[0], each[1][:30], each[2]))
+        pattern_list.append("{}, {}, {}".format(each[0], each[1], each[2]))
     print("\n")
     print("*******************************************************************")
     print("\n")
     conn.close()
-    #return()
+    return(pattern_list)
 
 #find_a_pattern()
 
@@ -118,13 +120,15 @@ def find_high_low_price():
     print("\n")
     print("*******************************************************************")
     print("\n")
+    hlprice_list = []
     for each in cur:
         print("{:<15} {:<30} {:<8}".format(each[0], each[1][:30], each[2]))
+        hlprice_list.append("{}, {}, {}".format(each[0], each[1], each[2]))
     print("\n")
     print("*******************************************************************")
     print("\n")
     conn.close()
-    #return()
+    return(hlprice_list)
 
 #find_high_low_price()
 
@@ -143,6 +147,7 @@ def compare_men_women():
         agg = "AVG"
     #select category names, average price
     #men
+    rlist = []
     statement = '''select Type, round({}(ListPrice), 2) '''.format(agg)
     statement += '''FROM Items JOIN Category ON Items.CategoryId=Category.Id '''
     statement += '''GROUP BY Type '''
@@ -151,6 +156,8 @@ def compare_men_women():
     men_d = {}
     for each in cur:
         men_d["men " + each[0]] = each[1]
+        rlist.append(each[0])
+        rlist.append(each[1])
 
     #women
     statement = '''select Type, round({}(ListPrice), 2) '''.format(agg)
@@ -161,6 +168,8 @@ def compare_men_women():
     women_d = {}
     for each in cur:
         women_d["women " + each[0]] = each[1]
+        rlist.append(each[0])
+        rlist.append(each[1])
     conn.close
     # do it for men and women
     #put it into list for plotly
@@ -189,5 +198,6 @@ def compare_men_women():
             )]
 
     py.plot(data, filename='bar-direct-labels')
+    return(rlist)
 
 #compare_men_women()
