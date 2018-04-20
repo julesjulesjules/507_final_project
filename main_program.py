@@ -18,6 +18,7 @@ from anthro_json import *
 from working_clothes_functions import *
 from second_level import *
 from working_with_database import *
+from class_def import *
 
 ################################################################################
 
@@ -83,17 +84,41 @@ while check2 != 1:
         #### probably should also make this a while loop
         user_instruct_or_no = input(">>>  ")
 
-### search
-user_search_action = 0
-while user_search_action != "exit":
-    user_search_action = input("What search method would you like, pattern/price/compare/exit: ")
-    if user_search_action == "pattern":
-        find_a_pattern()
-    elif user_search_action == "price":
-        find_high_low_price()
-    elif user_search_action == "compare":
-        compare_men_women()
-    elif user_search_action == "exit":
-        print("Goodbye!")
-    else:
-        print("unrecognized command: {}".format(user_search_action))
+print("\n")
+user_ask = input("Would you like to save your searches today? yes/no ")
+if user_ask == "yes":
+    user_cred_name = input("Type your name and press enter: ")
+    user_cred_password = input("Type a password and press enter: ")
+    current_user = Remember(user_cred_name, user_cred_password)
+    ### search
+    user_search_action = 0
+    while user_search_action != "exit":
+        user_search_action = input("What search method would you like, pattern/price/compare/exit: ")
+        if user_search_action == "pattern":
+            patt_r = find_a_pattern()
+            current_user.collection(patt_r)
+        elif user_search_action == "price":
+            price_r = find_high_low_price()
+            current_user.collection(price_r)
+        elif user_search_action == "compare":
+            comp_r = compare_men_women()
+            current_user.collection(comp_r)
+        elif user_search_action == "exit":
+            print("Goodbye!")
+        else:
+            print("unrecognized command: {}".format(user_search_action))
+else: 
+    ### search
+    user_search_action = 0
+    while user_search_action != "exit":
+        user_search_action = input("What search method would you like, pattern/price/compare/exit: ")
+        if user_search_action == "pattern":
+            find_a_pattern()
+        elif user_search_action == "price":
+            find_high_low_price()
+        elif user_search_action == "compare":
+            compare_men_women()
+        elif user_search_action == "exit":
+            print("Goodbye!")
+        else:
+            print("unrecognized command: {}".format(user_search_action))
