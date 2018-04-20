@@ -19,6 +19,7 @@ Accessory programs (must be in the same folder to run)
 	working_with_database.py -> find_a_pattern(), find_high_low_price(), compare_men_women()
 	second_level.py -> rescrape_and_rebuild(), just_rebuild()
 	working_clothes_functions.py -> UOwebscrape(gender)
+	class_def.py -> "Remember" class definition
 
 USER GUIDE: 
 <command line> python main_program.py
@@ -29,6 +30,9 @@ USER GUIDE:
 
 "help" - prints list of search command options, then allows user to search
 "next" - goes on to search prompt
+
+"yes" - allows user to enter a name and password so their search results can be saved
+"no" - still allows user to complete searches but their results are not saved
 
 "pattern" - searches for pattern mentioned in item name
 "price" - searches for most or least expensive items in specific categories
