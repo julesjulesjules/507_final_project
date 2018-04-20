@@ -43,12 +43,29 @@ def find_a_pattern():
     print("*******************************************************************")
     print("\n")
     pattern_list = []
+    bl = []
+    il = []
+    pl = []
     for each in cur:
         print("{:<15} {:<30} {:<8}".format(each[0], each[1][:30], each[2]))
         pattern_list.append("{}, {}, {}".format(each[0], each[1], each[2]))
+        bl.append(each[0])
+        il.append(each[1])
+        pl.append(each[2])
+    table_list = [bl, il, pl]
     print("\n")
     print("*******************************************************************")
     print("\n")
+    table_choice = input("Would you like to see this information in a table? yes/no ")
+    if table_choice == "yes":
+        trace = go.Table(header=dict(values=['Brand', 'Item', 'Price'], line = dict(color='#7D7F80'),
+                fill = dict(color='#a1c3d1')),
+                            cells=dict(values=table_list,
+               line = dict(color='#7D7F80'),
+               fill = dict(color='#EDFAFF')))
+
+        data = [trace]
+        py.plot(data, filename = 'basic_table')
     conn.close()
     return(pattern_list)
 
