@@ -61,5 +61,13 @@ class TestSQLRequests(unittest.TestCase):
             hg.append(each)
         self.assertGreater(hg[0][2], hg[9][2])
 
+class TestInstances(unittest.TestCase):
+
+    def classcheck(self):
+        new = Remember("namename", "passpass")
+        self.assertEqual(new.name, "namename")
+        self.assertEqual(new.password, "passpass")
+        
+
 if __name__ == '__main__':
     unittest.main()
